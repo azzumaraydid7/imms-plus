@@ -8,7 +8,7 @@ $webHost = parse_url((string) config('app.url'), PHP_URL_HOST) ?: (string) confi
 Route::domain($webHost)->group(function () {
     Route::middleware('guest')->group(function () {
         Route::get('/', [LoginController::class, 'show'])->name('login');
-        Route::post('/login', [LoginController::class, 'store'])->middleware('throttle:10,1');
+        Route::post('/login', [LoginController::class, 'store'])->name('login.store')->middleware('throttle:10,1');
     });
 
     Route::middleware('auth')->group(function () {

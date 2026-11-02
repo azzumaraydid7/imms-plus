@@ -12,7 +12,7 @@ class WebLoginTest extends TestCase
 
     public function test_login_page_is_accessible(): void
     {
-        $this->get('/login')
+        $this->get('/')
             ->assertOk()
             ->assertSee('Welcome back');
     }
@@ -34,12 +34,12 @@ class WebLoginTest extends TestCase
     {
         User::factory()->create(['email' => 'jane@imjpj.my']);
 
-        $this->from('/login')
+        $this->from('/')
             ->post('/login', [
                 'email' => 'jane@imjpj.my',
                 'password' => 'wrong-password',
             ])
-            ->assertRedirect('/login')
+            ->assertRedirect('/')
             ->assertSessionHasErrors('email');
 
         $this->assertGuest();
